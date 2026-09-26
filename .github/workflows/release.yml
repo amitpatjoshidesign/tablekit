@@ -1,7 +1,10 @@
 name: Release
+# Manual until npm is set up (the `tablekit` org, plus NPM_TOKEN or trusted publishing).
+# Run it from Actions → Release → Run workflow. To automate later, add back:
+#   push:
+#     branches: [main]
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
