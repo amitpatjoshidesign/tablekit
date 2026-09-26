@@ -15,10 +15,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      # https://<owner>.github.io/<repo>
-      SITE: https://${{ github.repository_owner }}.github.io
-      BASE: /${{ github.event.repository.name }}
-      SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+      # Served from a custom domain (Settings → Pages), so the site sits at the root.
+      SITE: https://tablekit.amitpatjoshi.com
+      BASE: /
+      SITE_URL: https://tablekit.amitpatjoshi.com
       REPO_URL: ${{ github.server_url }}/${{ github.repository }}
     steps:
       - uses: actions/checkout@v4
