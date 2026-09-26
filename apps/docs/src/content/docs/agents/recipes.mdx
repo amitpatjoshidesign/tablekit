@@ -1,0 +1,13 @@
+---
+title: Prompt recipes
+description: Copy-paste prompts for common tables, each with the schema a good answer should produce.
+sections: false
+---
+
+import Recipes from "../../../components/Recipes";
+
+Each recipe has a prompt you can paste into Claude Code, Cursor, v0 or Lovable, plus the schema a correct answer should contain. CI validates every schema here against `parseTableSchema`, so they always match the current API.
+
+Tip: after your agent answers, compare its schema with "Expected schema". Wrong tones or missing `priority` values are the most common gaps.
+
+<Recipes client:only="react" llmsUrl="https://amitpatjoshidesign.github.io/tablekit/llms.txt" />

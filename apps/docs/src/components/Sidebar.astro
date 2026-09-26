@@ -1,0 +1,75 @@
+---
+import { getCollection } from "astro:content";
+import { REPO_URL, shortLabels, sidebar } from "../data/site";
+import { icons } from "./icon";
+
+interface Props {
+  /** Current page id ("" = home). */
+  current: string;
+  sections: { slug: string; text: string }[];
+}
+const { current, sections } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const entries = await getCollection("docs");
+const byId = new Map(entries.map((e) => [e.id, e]));
+const label = (id: string) => shortLabels[id] ?? byId.get(id)?.data.title ?? id;
+const href = (id: string) => (id ? `${base}/${id}/` : `${base}/`);
+---
+<aside class="sidebar" id="sidebar" aria-label="Site">
+  <div class="sidebar-inner">
+    <a class="brand" href={`${base}/`}>
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>tablekit</span>
+    </a>
+
+    <div class="search" data-search data-base={base}>
+      <label class="sr-only" for="search-input">Search docs</label>
+      <Fragment set:html={icons.search} />
+      <input
+        id="search-input"
+        type="search"
+        placeholder="Search"
+        autocomplete="off"
+        spellcheck="false"
+        role="combobox"
+        aria-expanded="false"
+        aria-controls="search-results"
+        aria-autocomplete="list"
+      />
+      <kbd class="search-kbd" aria-hidden="true">/</kbd>
+      <div class="search-panel" id="search-results" role="listbox" aria-label="Search results" hidden></div>
+    </div>
+
+    <nav class="side-nav" aria-label="Docs">
+      <span class="side-dot" aria-hidden="true"></span>
+      {sidebar.map((group) => (
+        <div class="side-group">
+          {group.label && <p class="side-group-label type-label text-faint">{group.label}</p>}
+          <ul class="side-list">
+            {group.items.map((id) => (
+              <li>
+                <a href={href(id)} aria-current={id === current ? "page" : undefined}>{label(id)}</a>
+                {id === current && sections.length > 1 && (
+                  <ul class="side-sections" aria-label="On this page">
+                    {sections.map((s) => (
+                      <li><a href={`#${s.slug}`}>{s.text}</a></li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </nav>
+
+    <div class="side-foot">
+      <hr class="side-rule" />
+      <a href={`${base}/llms.txt`}>llms.txt</a>
+      <a href={REPO_URL}>GitHub</a>
+      <button type="button" class="theme-toggle" title="Toggle theme (D)">
+        <span class="sun">Dark mode</span><span class="moon">Light mode</span>
+      </button>
+    </div>
+  </div>
+</aside>

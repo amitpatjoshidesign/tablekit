@@ -1,0 +1,40 @@
+{
+  "name": "@tablekit/tokens",
+  "version": "0.1.0",
+  "description": "Design tokens for tablekit as CSS custom properties and W3C DTCG JSON, plus presets for shadcn/ui, Material 3, Carbon and Radix.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    "./tokens.css": "./dist/tokens.css",
+    "./tokens.json": "./dist/tokens.json",
+    "./presets/*": "./dist/presets/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  },
+  "keywords": [
+    "design-tokens",
+    "dtcg",
+    "css-variables",
+    "table",
+    "design-system"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amitpatjoshidesign/tablekit.git",
+    "directory": "packages/tokens"
+  },
+  "homepage": "https://amitpatjoshidesign.github.io/tablekit/",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

@@ -1,0 +1,53 @@
+---
+import Demo from "../components/DocsTable";
+import { icons } from "../components/icon";
+import Base from "../layouts/Base.astro";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+<Base
+  title="tablekit"
+  description="An accessible, token-driven table component for design systems and agentic coding."
+  path=""
+>
+  <main id="main" class="doc-main" data-wide>
+    <header class="hero">
+      <h1 class="type-display">A table component that agents get right</h1>
+      <p class="type-lead">
+        tablekit is an open-source data table for design systems and agentic prototyping. Agents
+        describe it in JSON, engineers compose it from parts, and designers theme it with tokens.
+      </p>
+      <p class="type-meta">v0.1 · React · MIT</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href={`${base}/getting-started/introduction/`}>
+          Get started
+          <Fragment set:html={icons.arrowRight} />
+        </a>
+        <a class="btn" href={`${base}/playground/`}>Open the playground</a>
+        <a class="btn" href={`${base}/llms.txt`}>llms.txt</a>
+      </div>
+    </header>
+
+    <div class="home-demo">
+      <Demo client:only="react" recipe="invoices" presets />
+    </div>
+
+    <section class="features" aria-label="Highlights">
+      <div class="feature" data-reveal>
+        <h2>Built for agents</h2>
+        <p>A strict, typed JSON schema, <code>llms.txt</code>, <code>AGENTS.md</code>, a shadcn registry and ready-made prompts, so Claude Code, Cursor or v0 get the table right the first time.</p>
+      </div>
+      <div class="feature" data-reveal>
+        <h2>Fits your design system</h2>
+        <p>All styling runs through <code>--tk-*</code> tokens. One-line presets map them to shadcn/ui, Material 3, Carbon and Radix, and a DTCG <code>tokens.json</code> imports into Figma.</p>
+      </div>
+      <div class="feature" data-reveal>
+        <h2>Accessible by default</h2>
+        <p>A semantic table with <code>aria-sort</code>, arrow-key cell navigation, announced changes, visible focus, reduced motion, forced colors and 44px touch targets.</p>
+      </div>
+      <div class="feature" data-reveal>
+        <h2>Web first, mobile ready</h2>
+        <p>Container-query responsive layout. On narrow screens it stacks into cards or drops low-priority columns.</p>
+      </div>
+    </section>
+  </main>
+</Base>

@@ -1,0 +1,44 @@
+---
+title: Server-side data
+description: Sort, filter and paginate on the server with controlled state.
+---
+
+For large datasets, let the server do the work. Set `manual` (schema mode) or the `manual*` options (composable mode), control the state, and pass `rowCount`.
+
+```tsx
+import { DataTable, createInitialState, type TableState } from "@tablekit/react";
+import { useState } from "react";
+
+export function Orders() {
+  const [state, setState] = useState<TableState>(() =>
+    createInitialState({ pagination: { pageIndex: 0, pageSize: 25 } }),
+  );
+
+  // Your fetching library of choice: TanStack Query, SWR, RSC, …
+  const { data, isLoading, error, refetch } = useOrders({
+    page: state.pagination.pageIndex,
+    size: state.pagination.pageSize,
+    sort: state.sorting,           // [{ id: "created", desc: true }]
+    q: state.globalFilter,
+    filters: state.columnFilters,  // [{ id: "status", value: ["paid"] }]
+  });
+
+  return (
+    <DataTable
+      schema={schema}
+      data={data?.rows ?? []}
+      rowCount={data?.total}
+      manual
+      state={state}
+      onStateChange={setState}
+      loading={isLoading}
+      error={error}
+      onRetry={refetch}
+    />
+  );
+}
+```
+
+While `loading` is true, current rows stay visible (dimmed) with a progress bar on top. On the first load you see skeleton rows instead.
+
+Filter values arrive as plain JSON (`string` for text, `string[]` for select, `{ min, max }` for range), so you can map them to query parameters as they are.

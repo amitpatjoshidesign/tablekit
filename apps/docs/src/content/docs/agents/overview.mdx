@@ -1,0 +1,66 @@
+---
+title: Agent guide
+description: How AI coding agents find, install and correctly use tablekit, and how to make your agent better at it.
+---
+
+tablekit is designed so an agent can build a correct table in one pass. It gives agents five things:
+
+| Surface | URL / path | For |
+| --- | --- | --- |
+| `llms.txt` | [`/llms.txt`](../../llms.txt) | A short index agents read first |
+| `llms-full.txt` | [`/llms-full.txt`](../../llms-full.txt) | The full docs, the JSON Schema and every recipe in one file |
+| JSON Schema | [`/schema/v1.json`](../../schema/v1.json) | Validating or constraining generated configs |
+| shadcn registry | [`/r/tablekit.json`](../../r/tablekit.json) | One-command install, including through the shadcn MCP server |
+| `AGENTS.md` | shipped in the npm package and the registry | Rules to follow inside a user's codebase |
+
+## Rules for agents
+
+These rules are in `AGENTS.md`, so an agent sees them after installing.
+
+1. **Prefer schema mode.** Use `<DataTable schema={…} data={…} />` unless the user needs custom cell markup.
+2. **Validate.** Call `parseTableSchema(schema)` from `@tablekit/core/schema` and fix every reported error. The schema is strict, so unknown keys are errors.
+3. **Colors come from tokens, not schemas.** Use badge `tones` (`neutral`, `info`, `success`, `warning`, `danger`, `accent`). To match a design system, import a preset.
+4. **Don't restyle with utility classes.** Override `--tk-*` tokens instead.
+5. **Always give the table a name:** set `title` or `aria-label`.
+6. **Keep data raw.** Pass numbers, ISO dates and enum strings, and let `type` and `format` handle display. Don't pre-format `"$1,234"`.
+7. **Server data** uses `manual`, `rowCount`, `state` and `onStateChange`. Don't slice pages on the client when the API already paginates.
+8. **Import styles once:** `import "@tablekit/react/styles.css"`.
+
+## Constrained generation
+
+Because the schema is plain JSON Schema, you can make an LLM produce **only valid tables** through structured output or tool use:
+
+```ts
+import schema from "@tablekit/core/tablekit.schema.json";
+
+// e.g. with the Claude API: a tool whose input_schema is the TableSchema
+const tools = [{
+  name: "render_table",
+  description: "Render a data table in the UI",
+  input_schema: schema,
+}];
+```
+
+Your app then renders `<DataTable schema={toolInput} data={rows} />`. This also works well for generative UI inside agent products.
+
+## Install with the shadcn MCP server
+
+If your agent has the [shadcn MCP server](https://ui.shadcn.com/docs/mcp), register tablekit in `components.json`:
+
+```json
+{
+  "registries": {
+    "@tablekit": "https://amitpatjoshidesign.github.io/tablekit/r/{name}.json"
+  }
+}
+```
+
+Then just ask: *"Add the tablekit data table from the @tablekit registry and use it for the users page."*
+
+## Tell your agent about tablekit
+
+Add one line to your project's `CLAUDE.md`, `AGENTS.md` or `.cursorrules`:
+
+```md
+Tables: use tablekit. Read https://amitpatjoshidesign.github.io/tablekit/llms.txt before writing table code.
+```

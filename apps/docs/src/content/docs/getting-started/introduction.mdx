@@ -1,0 +1,60 @@
+---
+title: Introduction
+description: What tablekit is, how it's organized, and which API to use.
+---
+
+tablekit is an open-source table component. It has three goals:
+
+1. **A well-designed, accessible web table** that also works on mobile.
+2. **Easy for AI coding agents to use correctly.** Agents fill in a declarative JSON config rather than guessing props.
+3. **Works with the design system you already have**, through CSS-variable tokens.
+
+## Packages
+
+| Package | What it is | Depends on |
+| --- | --- | --- |
+| `@tablekit/core` | Headless logic: sort, filter, paginate, select, columns, formatters. Framework-agnostic TypeScript. | nothing (`/schema` entry uses zod) |
+| `@tablekit/react` | Styled React components: `<DataTable>` (schema mode) and `Table.*` parts (composable mode). | core, tokens |
+| `@tablekit/tokens` | `tokens.css` (CSS variables), `tokens.json` (W3C DTCG), and design-system presets. | nothing |
+
+## Two ways to use it
+
+**Schema mode.** Best for agents, prototypes, and admin screens. The whole table is one object:
+
+```tsx
+import { DataTable } from "@tablekit/react";
+import "@tablekit/react/styles.css";
+
+<DataTable
+  data={orders}
+  schema={{
+    title: "Orders",
+    columns: [
+      { field: "id", header: "Order", type: "link", link: { hrefTemplate: "/orders/{id}" } },
+      { field: "status", header: "Status", type: "badge", badge: { tones: { paid: "success", overdue: "danger" } } },
+      { field: "total", header: "Total", type: "currency", format: { currency: "USD" } },
+    ],
+    features: { selection: "multi" },
+  }}
+/>
+```
+
+**Composable mode.** Best for product surfaces that need custom cells or layout. The same features come as parts you arrange yourself:
+
+```tsx
+const table = useTable({ data, columns });
+
+<Table.Root table={table} aria-label="Orders">
+  <Table.Toolbar title="Orders"><Table.Search /><Table.Filters /></Table.Toolbar>
+  <Table.Content />
+  <Table.Pagination />
+</Table.Root>
+```
+
+Both modes share the same core, CSS and tokens. You can start in schema mode and move to composable mode later without redesigning anything.
+
+## What's in v1
+
+Sorting (multi-sort with <kbd>Shift</kbd>), global search, column filters (text / select / range) with removable chips, pagination, single and multi row selection with a bulk-action bar, row action menus, column visibility, column resize (pointer and keyboard), pinned first column, sticky header, three densities, zebra and bordered variants, loading / empty / no-results / error states, responsive card stacking, and priority-based column hiding.
+
+Planned for later: virtualization, inline editing, grouping, column reorder, expandable rows, CSV export, a Figma library with Code Connect, and a React Native adapter built on `@tablekit/core`.

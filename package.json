@@ -1,0 +1,46 @@
+{
+  "name": "tablekit-monorepo",
+  "private": true,
+  "version": "0.0.0",
+  "description": "An accessible, token-driven table component for design systems and agentic coding.",
+  "license": "MIT",
+  "workspaces": [
+    "packages/tokens",
+    "packages/core",
+    "packages/react",
+    "apps/docs"
+  ],
+  "scripts": {
+    "build": "npm run build -w @tablekit/tokens -w @tablekit/core -w @tablekit/react",
+    "build:all": "npm run build && npm run registry:build && npm run llms:build && npm run build -w docs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -p packages/core --noEmit && tsc -p packages/react --noEmit",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "registry:build": "node scripts/build-registry.mjs",
+    "llms:build": "node scripts/build-llms.mjs",
+    "dev": "npm run build && npm run registry:build && npm run llms:build && npm run dev -w docs",
+    "e2e": "playwright test",
+    "changeset": "changeset",
+    "release": "npm run build && changeset publish"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@biomejs/biome": "^2.2.0",
+    "@changesets/cli": "^2.29.0",
+    "@playwright/test": "^1.55.0",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "axe-core": "^4.10.0",
+    "jsdom": "^27.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.0"
+  }
+}

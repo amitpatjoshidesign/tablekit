@@ -1,0 +1,77 @@
+---
+import "@fontsource-variable/inter";
+import "@tablekit/react/styles.css";
+import "../styles/site.css";
+import Sidebar from "../components/Sidebar.astro";
+import { icons } from "../components/icon";
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Current page id ("" = home). */
+  path: string;
+  /** H2 sections of the current page, listed under it in the sidebar. */
+  sections?: { slug: string; text: string }[];
+}
+const { title, description, path, sections = [] } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const fullTitle = title === "tablekit" ? "tablekit" : `${title} · tablekit`;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    {description && <meta name="description" content={description} />}
+    <meta property="og:title" content={fullTitle} />
+    {description && <meta property="og:description" content={description} />}
+    <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" />
+    <link rel="alternate" type="text/plain" title="llms.txt" href={`${base}/llms.txt`} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <style is:global set:html={`:root{--mark-url:url("${base}/mark.svg")}`} />
+    <script is:inline>
+      // Theme before paint: saved choice, else the OS. Always set a class so
+      // the table tokens (which also honor .light/.dark) agree with the page.
+      (() => {
+        let t = null;
+        try { t = localStorage.getItem("theme"); } catch {}
+        if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.classList.add(t);
+      })();
+    </script>
+    <noscript><style>[data-visible="false"]{opacity:1!important;transform:none!important;filter:none!important}</style></noscript>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="canvas-backdrop" aria-hidden="true"></div>
+
+    <!-- Phones and tablets: the sidebar becomes a drawer opened from this bar. -->
+    <header class="mobile-bar">
+      <a class="brand" href={`${base}/`}>
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>tablekit</span>
+      </a>
+      <button type="button" class="menu-button" aria-controls="sidebar" aria-expanded="false">
+        <Fragment set:html={icons.menu} />
+        <span>Menu</span>
+      </button>
+    </header>
+
+    <div class="shell">
+      <Sidebar current={path} sections={sections} />
+      <div class="shell-main">
+        <slot />
+        <footer class="site-foot">
+          MIT licensed · Set in <a href="https://rsms.me/inter/">Inter</a> · Palette from <a href="https://amitpatjoshi.com">amitpatjoshi.com</a>
+        </footer>
+      </div>
+    </div>
+    <div class="scrim" hidden></div>
+    <script>
+      import "../scripts/site.ts";
+    </script>
+  </body>
+</html>

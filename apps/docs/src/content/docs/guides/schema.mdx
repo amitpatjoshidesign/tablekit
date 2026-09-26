@@ -1,0 +1,105 @@
+---
+title: Schema mode
+description: The TableSchema reference, the declarative config behind <DataTable>.
+---
+
+import Demo from "../../../components/DocsTable";
+
+`<DataTable schema={…} data={…} />` renders a complete table from a single JSON-serializable object. The schema is **strict**: unknown keys are rejected, so a mistyped or invented prop produces an error instead of quietly doing nothing.
+
+```ts
+import { parseTableSchema } from "@tablekit/core/schema";
+
+const result = parseTableSchema(schema);
+if (!result.success) console.error(result.errors);
+// → ["columns.2.type: Invalid option: expected one of \"text\"|\"number\"|…"]
+```
+
+The JSON Schema version is available at [`/schema/v1.json`](../../schema/v1.json) and as `@tablekit/core/tablekit.schema.json`. Use it for editor autocompletion (`"$schema": "…/schema/v1.json"`) or for LLM structured output.
+
+## Top level
+
+| Key | Type | Default | Notes |
+| --- | --- | --- | --- |
+| `title` | string | | Toolbar heading and the table's accessible name. |
+| `description` | string | | Muted text under the title. |
+| `rowId` | string | `"id"` | Row field used as a stable id (for selection). |
+| `columns` | Column[] | **required** | At least one. |
+| `features` | object | see below | |
+| `appearance` | object | see below | |
+| `initialState` | `{ sort?, search? }` | | `sort: [{ id, desc }]`. |
+| `bulkActions` | `{ id, label, tone? }[]` | | Shown in the selection bar. Requires `selection: "multi"`. |
+| `emptyState` | `{ title, description? }` | | Shown when there's no data. This is different from "no results". |
+
+### `features`
+
+| Key | Default | |
+| --- | --- | --- |
+| `search` | `true` | Global search box |
+| `columnFilters` | `true` | Filters popover and chips |
+| `sorting` / `multiSort` | `true` / `true` | <kbd>Shift</kbd>+click adds a sort |
+| `pagination` | `true` | |
+| `pageSize` / `pageSizeOptions` | `10` / `[10,25,50,100]` | |
+| `selection` | `"none"` | `"single"` or `"multi"` |
+| `columnVisibility` | `true` | Show/hide checkboxes in the Columns menu |
+| `columnReorder` | `true` | Drag handles in the Columns menu (or <kbd>↑</kbd>/<kbd>↓</kbd> on the handle) |
+| `columnPinning` | `true` | Pin toggles in the Columns menu; `column.pinned` sets the initial state |
+| `columnResize` | `true` | Drag, or use arrow keys on the handle |
+| `stickyHeader` | `true` | Sticks inside `maxHeight` |
+
+### `appearance`
+
+| Key | Default | |
+| --- | --- | --- |
+| `density` | `"default"` | `"compact"` or `"comfortable"` |
+| `variant` | `"plain"` | `"zebra"` or `"bordered"` |
+| `responsive` | `"stack"` | `"scroll"` or `"priority"`. See [Responsive](../responsive/) |
+| `stackBelow` | `640` | Container width in px |
+
+## Columns
+
+Every column has `field`, `header` and `type`. `field` accepts dot paths such as `customer.name`.
+
+| `type` | Renders | Default filter | Type-specific keys |
+| --- | --- | --- | --- |
+| `text` | Plain text | none | `format.prefix/suffix` |
+| `number` | `Intl.NumberFormat`, right-aligned | range | `format.decimals/notation/style/unit` |
+| `currency` | Money, right-aligned | range | `format.currency` (ISO 4217) |
+| `date` | `<time>` with a full timestamp on hover | range (date inputs) | `format.dateStyle` (`relative`!) / `timeStyle` |
+| `badge` | Tone-colored pill with a dot, an icon, or icon only | select | `badge.tones`, `badge.labels`, `badge.defaultTone`, `badge.indicator` (`dot` · `icon` · `icon-only` · `none`), `badge.icons` (value → icon name), `badge.fill` (default `true`), `badge.stroke` (default `false`) |
+| `avatar` | Initials or image, plus a subtitle. `logo: "inline"` (16px mark on the name's first line; `--tk-avatar-logo-inline-size` to change) or `logo: "circle"` (mark in a filled circle) for bank/merchant logos | none | `avatar.imageField`, `avatar.imageDarkField` (dark-theme variant, e.g. a light logo), `avatar.subtitleField`, `avatar.logo`, `avatar.logoFill` (`neutral` · `accent`) |
+| `link` | Anchor | none | `link.hrefTemplate` (`/x/{id}`), `link.hrefField`, `link.external` |
+| `boolean` | Check or dash icon | select | `format.trueLabel/falseLabel` |
+| `actions` | Row menu (⋯) or inline icon buttons, never a row of text buttons | none | `actions: [{ id, label, tone?, icon?, disabled?, separator?, when? }]`, `actionsDisplay` (`menu` · `inline`) |
+| `button` | One button inside the cell (Pay, Download, Retry) | none | `button: { id, label?, variant? (secondary · primary · ghost), tone?, icon?, when? }` |
+
+Shared column keys: `id`, `sortable`, `filter` (`"text" | "select" | "range" | false`), `searchable`, `hideable`, `hidden`, `width`, `minWidth`, `maxWidth`, `pinned`, `priority` (1–5), `align`.
+
+**Icons** come from Lucide, from two closed lists so a generated schema can't name an icon that doesn't exist:
+
+- badge icons: `circle-check`, `check`, `circle-x`, `x`, `triangle-alert`, `circle-alert`, `info`, `circle-dashed`, `circle`, `circle-dot`, `circle-pause`, `clock`, `hourglass`, `loader` (spins), `refresh-cw`, `ban`, `lock`, `shield-check`, `arrow-up`, `arrow-down`, `arrow-right`, `undo-2`, `send`, `truck`, `star`, `zap`, `sparkles`, `eye`. With `indicator: "icon"` and no per-value icon, each tone uses its default: neutral `circle-dashed`, info `info`, success `circle-check`, warning `triangle-alert`, danger `circle-x`, accent `sparkles`.
+- action icons: `eye`, `pencil`, `copy`, `download`, `upload`, `share-2`, `send`, `external-link`, `refresh-cw`, `undo-2`, `archive`, `trash-2`, `ban`, `lock`, `unlock`, `check`, `x`, `user-plus`, `mail`, `receipt`, `flag`, `star`. Every action needs one when `actionsDisplay` is `inline`.
+
+An action's `when: { field, in }` shows it only on matching rows, e.g. Refund only where `status` is `paid`.
+
+**Tones** are semantic: `neutral`, `info`, `success`, `warning`, `danger`, `accent`. They map to `--tk-tone-*` tokens, so each design system decides the actual colors. **Never put hex colors in a schema.**
+
+## Events
+
+```tsx
+<DataTable
+  schema={schema}
+  data={rows}
+  onAction={(actionId, row) => {}}       // row menu
+  onBulkAction={(actionId, rows) => {}}  // selection bar
+  onRowClick={(row) => {}}
+  onSelectionChange={(ids) => {}}
+  loading={isLoading}
+  error={error}
+  onRetry={refetch}
+/>
+```
+
+## Example
+
+<Demo client:only="react" recipe="members" />

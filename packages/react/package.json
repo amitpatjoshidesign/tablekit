@@ -1,0 +1,61 @@
+{
+  "name": "@tablekit/react",
+  "version": "0.1.0",
+  "description": "Accessible, token-driven React data table. Schema mode for agents, composable mode for humans.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./tablekit.css": "./dist/tablekit.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "AGENTS.md",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup && node scripts/build-css.mjs"
+  },
+  "dependencies": {
+    "@tablekit/core": "0.1.0",
+    "@tablekit/tokens": "0.1.0",
+    "lucide-react": "^1.48.0"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "keywords": [
+    "react",
+    "table",
+    "data-table",
+    "datagrid",
+    "accessible",
+    "design-system",
+    "shadcn",
+    "agentic",
+    "llm"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amitpatjoshidesign/tablekit.git",
+    "directory": "packages/react"
+  },
+  "homepage": "https://amitpatjoshidesign.github.io/tablekit/",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

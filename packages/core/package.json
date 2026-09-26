@@ -1,0 +1,55 @@
+{
+  "name": "@tablekit/core",
+  "version": "0.1.0",
+  "description": "Framework-agnostic headless table logic: sorting, filtering, pagination, selection, columns and a declarative JSON schema.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./schema": {
+      "types": "./dist/schema.d.ts",
+      "import": "./dist/schema.js",
+      "require": "./dist/schema.cjs"
+    },
+    "./tablekit.schema.json": "./dist/tablekit.schema.json",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "AGENTS.md",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup && npm run schema",
+    "schema": "node --experimental-strip-types scripts/emit-json-schema.ts"
+  },
+  "dependencies": {
+    "zod": "^4.1.0"
+  },
+  "keywords": [
+    "table",
+    "data-table",
+    "headless",
+    "design-system",
+    "agentic",
+    "llm"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amitpatjoshidesign/tablekit.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://amitpatjoshidesign.github.io/tablekit/",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

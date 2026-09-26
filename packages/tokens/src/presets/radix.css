@@ -1,0 +1,53 @@
+/*
+ * tablekit × Radix Themes preset
+ * Maps --tk-* tokens to Radix Themes scales (--gray-*, --accent-*). Uses whatever accent
+ * and gray color you set on <Theme>. Dark mode follows Radix's `.dark` / appearance.
+ */
+:root,
+.radix-themes {
+  --tk-font-family: var(
+    --default-font-family,
+    "Inter Variable",
+    InterVariable,
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif
+  );
+  --tk-color-surface: var(--color-panel-solid, var(--color-background));
+  --tk-color-surface-raised: var(--color-panel-solid);
+  --tk-color-header-bg: var(--gray-2);
+  --tk-color-logo-fill: var(--gray-3);
+  --tk-color-row-hover: var(--gray-a2);
+  --tk-color-row-stripe: var(--gray-a2);
+  --tk-color-row-selected: var(--accent-a3);
+  --tk-color-text: var(--gray-12);
+  --tk-color-text-muted: var(--gray-11);
+  --tk-color-text-header: var(--gray-11);
+  --tk-color-border: var(--gray-a5);
+  --tk-color-border-strong: var(--gray-a7);
+  --tk-color-accent: var(--accent-9);
+  --tk-color-accent-hover: var(--accent-10);
+  --tk-color-accent-contrast: var(--accent-contrast);
+  --tk-color-focus: var(--focus-8);
+  --tk-color-danger: var(--red-11);
+  --tk-color-skeleton: var(--gray-a3);
+  --tk-radius-sm: var(--radius-1);
+  --tk-radius-md: var(--radius-3);
+  --tk-radius-lg: var(--radius-4);
+  --tk-tone-neutral-bg: var(--gray-a3);
+  --tk-tone-neutral-fg: var(--gray-11);
+  --tk-tone-info-bg: var(--blue-a3);
+  --tk-tone-info-fg: var(--blue-11);
+  --tk-tone-success-bg: var(--green-a3);
+  --tk-tone-success-fg: var(--green-11);
+  --tk-tone-warning-bg: var(--amber-a3);
+  --tk-tone-warning-fg: var(--amber-11);
+  --tk-tone-danger-bg: var(--red-a3);
+  --tk-tone-danger-fg: var(--red-11);
+  --tk-tone-accent-bg: var(--accent-a3);
+  --tk-tone-accent-fg: var(--accent-11);
+}

@@ -1,0 +1,182 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "tablekit",
+  "homepage": "https://amitpatjoshidesign.github.io/tablekit",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "author": "tablekit contributors",
+      "docs": "Docs for agents: https://amitpatjoshidesign.github.io/tablekit/llms.txt — rules: components/tablekit/AGENTS.md",
+      "categories": [
+        "table",
+        "data-table",
+        "data"
+      ],
+      "name": "tablekit",
+      "type": "registry:block",
+      "title": "tablekit data table",
+      "description": "Accessible, token-driven data table: sorting, filtering, pagination, selection, column resize/visibility, responsive cards, and a declarative JSON schema for agents. Themed via your shadcn CSS variables.",
+      "dependencies": [
+        "zod@^4.1.0",
+        "lucide-react@^1.48.0"
+      ],
+      "files": [
+        {
+          "path": "registry/tablekit/core/badge-icons.ts",
+          "type": "registry:lib",
+          "target": "components/tablekit/core/badge-icons.ts"
+        },
+        {
+          "path": "registry/tablekit/core/columns.ts",
+          "type": "registry:lib",
+          "target": "components/tablekit/core/columns.ts"
+        },
+        {
+          "path": "registry/tablekit/core/filtering.ts",
+          "type": "registry:lib",
+          "target": "components/tablekit/core/filtering.ts"
+        },
+        {
+          "path": "registry/tablekit/core/format.ts",
+          "type": "registry:lib",
+          "target": "components/tablekit/core/format.ts"
+        },
+        {
+          "path": "registry/tablekit/core/index.ts",
+          "type": "registry:lib",
+          "target": "components/tablekit/core/index.ts"
+        },
+        {
+          "path": "registry/tablekit/core/pagination.ts",
+          "type": "registry:lib",
+          "target": "components/tablekit/core/pagination.ts"
+        },
+        {
+          "path": "registry/tablekit/core/schema-columns.ts",
+          "type": "registry:lib",
+          "target": "components/tablekit/core/schema-columns.ts"
+        },
+        {
+          "path": "registry/tablekit/core/schema.ts",
+          "type": "registry:lib",
+          "target": "components/tablekit/core/schema.ts"
+        },
+        {
+          "path": "registry/tablekit/core/selection.ts",
+          "type": "registry:lib",
+          "target": "components/tablekit/core/selection.ts"
+        },
+        {
+          "path": "registry/tablekit/core/sorting.ts",
+          "type": "registry:lib",
+          "target": "components/tablekit/core/sorting.ts"
+        },
+        {
+          "path": "registry/tablekit/core/table.ts",
+          "type": "registry:lib",
+          "target": "components/tablekit/core/table.ts"
+        },
+        {
+          "path": "registry/tablekit/core/types.ts",
+          "type": "registry:lib",
+          "target": "components/tablekit/core/types.ts"
+        },
+        {
+          "path": "registry/tablekit/core/utils.ts",
+          "type": "registry:lib",
+          "target": "components/tablekit/core/utils.ts"
+        },
+        {
+          "path": "registry/tablekit/DataTable.tsx",
+          "type": "registry:component",
+          "target": "components/tablekit/DataTable.tsx"
+        },
+        {
+          "path": "registry/tablekit/cells.tsx",
+          "type": "registry:component",
+          "target": "components/tablekit/cells.tsx"
+        },
+        {
+          "path": "registry/tablekit/content.tsx",
+          "type": "registry:component",
+          "target": "components/tablekit/content.tsx"
+        },
+        {
+          "path": "registry/tablekit/context.tsx",
+          "type": "registry:component",
+          "target": "components/tablekit/context.tsx"
+        },
+        {
+          "path": "registry/tablekit/hooks.ts",
+          "type": "registry:lib",
+          "target": "components/tablekit/hooks.ts"
+        },
+        {
+          "path": "registry/tablekit/icons.tsx",
+          "type": "registry:component",
+          "target": "components/tablekit/icons.tsx"
+        },
+        {
+          "path": "registry/tablekit/index.ts",
+          "type": "registry:lib",
+          "target": "components/tablekit/index.ts"
+        },
+        {
+          "path": "registry/tablekit/pagination.tsx",
+          "type": "registry:component",
+          "target": "components/tablekit/pagination.tsx"
+        },
+        {
+          "path": "registry/tablekit/popover.tsx",
+          "type": "registry:component",
+          "target": "components/tablekit/popover.tsx"
+        },
+        {
+          "path": "registry/tablekit/toolbar.tsx",
+          "type": "registry:component",
+          "target": "components/tablekit/toolbar.tsx"
+        },
+        {
+          "path": "registry/tablekit/useTable.ts",
+          "type": "registry:lib",
+          "target": "components/tablekit/useTable.ts"
+        },
+        {
+          "path": "registry/tablekit/tablekit.css",
+          "type": "registry:file",
+          "target": "components/tablekit/tablekit.css"
+        },
+        {
+          "path": "registry/tablekit/AGENTS.md",
+          "type": "registry:file",
+          "target": "components/tablekit/AGENTS.md"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "author": "tablekit contributors",
+      "docs": "Docs for agents: https://amitpatjoshidesign.github.io/tablekit/llms.txt — rules: components/tablekit/AGENTS.md",
+      "categories": [
+        "table",
+        "data-table",
+        "data"
+      ],
+      "name": "tablekit-npm",
+      "type": "registry:component",
+      "title": "tablekit data table (npm)",
+      "description": "Thin wrapper around the published @tablekit/react package with the shadcn preset applied.",
+      "dependencies": [
+        "@tablekit/react",
+        "@tablekit/tokens"
+      ],
+      "files": [
+        {
+          "path": "registry/tablekit-npm/data-table.tsx",
+          "type": "registry:component",
+          "target": "components/data-table.tsx"
+        }
+      ]
+    }
+  ]
+}

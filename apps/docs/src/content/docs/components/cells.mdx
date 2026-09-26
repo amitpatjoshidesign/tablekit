@@ -1,0 +1,50 @@
+---
+title: Cell types
+description: Every cell type and its variants, rendered by the real component. Copy a tile's reference to give feedback on exactly that variant.
+---
+
+import { CellSpecimen, SpecControls } from "../../../components/Specimens";
+
+Each tile is one variant, drawn with the same renderer the table uses (`renderSchemaCell`), so what you see here is what ships. The label under a tile (e.g. **Badge / danger**) is its reference; click it to copy `tablekit › Badge / danger` for feedback. The line under it is the column config that produces it.
+
+<SpecControls client:only="react" />
+
+## Text
+
+<CellSpecimen client:only="react" id="text" />
+
+## Number
+
+<CellSpecimen client:only="react" id="number" />
+
+## Currency
+
+<CellSpecimen client:only="react" id="currency" />
+
+## Date
+
+<CellSpecimen client:only="react" id="date" />
+
+## Badge
+
+<CellSpecimen client:only="react" id="badge" />
+
+## Avatar
+
+<CellSpecimen client:only="react" id="avatar" />
+
+## Link
+
+<CellSpecimen client:only="react" id="link" />
+
+## Boolean
+
+<CellSpecimen client:only="react" id="boolean" />
+
+## Button
+
+<CellSpecimen client:only="react" id="button" />
+
+## Row actions
+
+<CellSpecimen client:only="react" id="actions" />

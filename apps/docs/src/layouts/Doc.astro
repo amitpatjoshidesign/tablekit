@@ -1,0 +1,35 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import { order } from "../data/site";
+import Base from "./Base.astro";
+
+interface Props {
+  entry: CollectionEntry<"docs">;
+  headings: { depth: number; slug: string; text: string }[];
+}
+const { entry, headings } = Astro.props;
+const entries = await getCollection("docs");
+const sections = entry.data.sections === false ? [] : headings.filter((h) => h.depth === 2);
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const nextId = order[order.indexOf(entry.id) + 1];
+const next = nextId ? entries.find((e) => e.id === nextId) : undefined;
+---
+<Base title={entry.data.title} description={entry.data.description} path={entry.id} sections={sections}>
+  <main id="main" class="doc-main" data-wide={entry.data.wide ? "" : undefined}>
+    <header class="doc-header">
+      <h1 class="type-display">{entry.data.title}</h1>
+      {entry.data.description && <p class="type-lead">{entry.data.description}</p>}
+    </header>
+    <div class="prose" style="margin-top: 40px">
+      <slot />
+    </div>
+    {next && (
+      <nav class="next-page" aria-label="Next page">
+        <a href={`${base}/${next.id}/`}>
+          <span class="type-label">Next</span>
+          <strong>{next.data.title}</strong>
+        </a>
+      </nav>
+    )}
+  </main>
+</Base>

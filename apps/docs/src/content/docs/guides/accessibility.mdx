@@ -1,0 +1,43 @@
+---
+title: Accessibility
+description: What tablekit does for keyboard, screen reader and low-vision users, and what you still need to do.
+---
+
+Target: **WCAG 2.2 AA**. Every build runs [axe-core](https://github.com/dequelabs/axe-core) in CI against the table, its states and the composable API.
+
+## What you get
+
+- A **semantic `<table>`** with `<th scope="col">`, `aria-sort` on sorted headers, and `aria-rowcount` / `aria-rowindex` so screen readers know the full size across pages. In the stacked layout, rows become a `<ul>` of cards with `<dl>` field pairs instead of CSS-reflowed table cells, which lose their semantics in several browsers.
+- **Keyboard:**
+  - <kbd>Tab</kbd> reaches every control.
+  - Arrow keys, <kbd>Home</kbd> and <kbd>End</kbd> move between cells. When a cell has a link or button, focus goes to it.
+  - <kbd>Enter</kbd> on a cell runs `onRowClick`.
+  - <kbd>Shift</kbd>+click or <kbd>Shift</kbd>+<kbd>Enter</kbd> on a header adds a secondary sort.
+  - Resize handles are focusable separators you move with <kbd>←</kbd>/<kbd>→</kbd> (hold <kbd>Shift</kbd> for bigger steps). Double-click resets the width.
+- **Announcements** through a polite live region: sort changes ("Sorted by Total, descending"), result counts while searching, page changes ("Page 2 of 5"), and selection counts.
+- **Menus and popovers:** focus moves in when they open and returns to the trigger on close. <kbd>Escape</kbd> closes them. Row menus support arrow keys, <kbd>Home</kbd> and <kbd>End</kbd>.
+- **Labels:** every checkbox has a meaningful name ("Select Ava Patel"). The select-all checkbox shows a mixed state. Icon-only buttons have `aria-label`s.
+- **Visual:**
+  - Tokens meet 4.5:1 text contrast in light and dark.
+  - Focus rings are always visible (`:focus-visible`).
+  - Badges pair a dot with text, so status doesn't rely on color alone.
+  - `forced-colors` (Windows High Contrast) is supported.
+  - `prefers-reduced-motion` turns off animation.
+
+## What you still own
+
+- **An accessible name.** Pass `title` in the schema, or `aria-label` on `Table.Root`.
+- **Custom cells.** If you render buttons or links yourself, give them names.
+- **Contrast after theming.** If you override tokens, check them. The Playground is a quick way to preview.
+- **Localization.** Pass a `labels` object to translate every string, including the announcements:
+
+```tsx
+<DataTable
+  labels={{
+    search: "Suchen",
+    selected: (n) => `${n} ausgewählt`,
+    sortedAsc: (c) => `Sortiert nach ${c}, aufsteigend`,
+  }}
+  …
+/>
+```

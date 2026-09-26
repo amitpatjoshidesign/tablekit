@@ -1,0 +1,64 @@
+---
+title: Theming & design systems
+description: Tokens, dark mode, presets for shadcn/ui, Material 3, Carbon and Radix, and Figma via DTCG.
+---
+
+import Demo from "../../../components/DocsTable";
+
+All styling reads CSS custom properties named `--tk-*`. The component CSS sits inside `:where()`, which gives it zero specificity. That means **you never need `!important`**: change a token, or add your own class.
+
+<Demo client:only="react" recipe="invoices" presets />
+
+## Token layers
+
+1. **Primitives**, e.g. `--tk-neutral-100` and `--tk-blue-600`. Raw palette.
+2. **Semantic**, e.g. `--tk-color-surface`, `--tk-color-row-selected`, `--tk-color-accent` and `--tk-tone-success-bg`. These are what components read.
+3. **Base**, e.g. `--tk-font-*` (Inter by default; `--tk-font-feature-numeric` sets Inter's number features for every figure in the table, `"tnum" 1, "zero" 1, "ss01" 1` by default: tabular widths, slashed zero, open digits), `--tk-radius-*`, `--tk-space-cell-*`, `--tk-shadow-popover` and `--tk-motion-*`.
+
+Override anything:
+
+```css
+:root {
+  --tk-color-accent: #0a7c66;
+  --tk-radius-md: 4px;
+  --tk-font-family: "IBM Plex Sans", sans-serif;
+}
+```
+
+## Dark mode
+
+The table follows `prefers-color-scheme` automatically. You can force a mode on any ancestor with `data-tk-theme="dark"`, `data-theme="dark"` or `class="dark"`, or on one table with `<DataTable theme="dark" />`.
+
+## Presets
+
+A preset is a single CSS file that maps `--tk-*` tokens onto your design system's variables. When your design system switches theme, the table switches with it.
+
+| Preset | Maps to | Import |
+| --- | --- | --- |
+| shadcn/ui | `--background`, `--muted`, `--primary`, `--ring`, `--radius` … | `@tablekit/tokens/presets/shadcn.css` |
+| Material 3 | `--md-sys-color-*`, `--md-sys-shape-*` | `@tablekit/tokens/presets/material3.css` |
+| IBM Carbon | `--cds-layer-*`, `--cds-text-*`, `--cds-tag-*` | `@tablekit/tokens/presets/carbon.css` |
+| Radix Themes | `--gray-*`, `--accent-*`, `--radius-*` | `@tablekit/tokens/presets/radix.css` |
+
+Using a different design system? Copy `shadcn.css` and replace the right-hand sides. It's about 30 lines.
+
+## Figma & design tools
+
+`@tablekit/tokens/tokens.json` follows the [W3C Design Tokens (DTCG)](https://tr.designtokens.org/format/) format. It has token sets `primitives`, `base`, `light` and `dark`, plus `$themes` for Light and Dark.
+
+- **Tokens Studio for Figma:** load it with *Import → JSON*. Semantic tokens stay aliased to primitives.
+- **Style Dictionary v4:** point `source` at the file to generate iOS, Android or other platform outputs.
+
+Each CSS variable is named after its token path: `light.color.row-selected` becomes `--tk-color-row-selected`, and `light.tone.success.bg` becomes `--tk-tone-success-bg`.
+
+## Stable class names
+
+If you'd rather style with selectors, every part has a stable `tk-*` class, and state is exposed through data attributes:
+
+```css
+.tk-tr[data-selected] > .tk-td { … }
+.tk-root[data-density="compact"] { … }
+.tk-root[data-layout="stack"] { … }
+.tk-th[data-sorted="desc"] { … }
+.tk-badge[data-tone="danger"] { … }
+```

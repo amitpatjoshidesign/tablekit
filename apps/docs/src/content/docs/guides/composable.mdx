@@ -1,0 +1,81 @@
+---
+title: Composable API
+description: Build custom tables from useTable and the Table.* parts.
+---
+
+Use composable mode when you need custom cells, a different toolbar, or extra UI between the parts. `<DataTable>` is itself built from these same parts.
+
+```tsx
+import { Table, useTable, Badge, type ReactColumnDef } from "@tablekit/react";
+
+type Project = { id: string; name: string; health: "good" | "risk"; budget: number };
+
+const columns: ReactColumnDef<Project>[] = [
+  { id: "name", header: "Project", pinned: true, width: 220 },
+  {
+    id: "health",
+    header: "Health",
+    filter: "select",
+    cell: ({ value }) => <Badge tone={value === "good" ? "success" : "danger"}>{String(value)}</Badge>,
+  },
+  { id: "budget", header: "Budget", align: "end", filter: "range" },
+];
+
+export function Projects({ data }: { data: Project[] }) {
+  const table = useTable({ data, columns, selectionMode: "multi" });
+  return (
+    <Table.Root table={table} aria-label="Projects" variant="zebra">
+      <Table.Toolbar title="Projects">
+        <Table.Search />
+        <Table.SortSelect />       {/* only shows in the stacked layout */}
+        <Table.Filters />
+        <Table.ColumnToggle />
+        <Table.DensityToggle />
+      </Table.Toolbar>
+      <Table.FilterChips />
+      <Table.SelectionBar>
+        <button className="tk-button" onClick={() => archive(table.selectedRows)}>Archive</button>
+      </Table.SelectionBar>
+      <Table.Content maxHeight={480} onRowClick={(row) => open(row.original)} />
+      <Table.Pagination />
+    </Table.Root>
+  );
+}
+```
+
+## `useTable(options)`
+
+| Option | |
+| --- | --- |
+| `data`, `columns` | Required. |
+| `getRowId(row, i)` | Defaults to `row.id`, then the index. |
+| `selectionMode` | `"none"`, `"single"` or `"multi"` |
+| `initialState` | Uncontrolled start: `sorting`, `globalFilter`, `columnFilters`, `pagination`, `rowSelection`, `columnVisibility`, `columnSizing` |
+| `state` + `onStateChange` | Controlled. Any key you pass is owned by you. |
+| `manualSorting` / `manualFiltering` / `manualPagination` + `rowCount` | Server mode. See [Server-side data](../server-data/). |
+| `enableMultiSort`, `enablePagination` | |
+
+The returned instance has `rowModel` (`rows`, `filteredRows`, `allRows`, `pageCount`, `totalRows`), `state`, `selectedRows`, and actions such as `toggleSort`, `setGlobalFilter`, `setColumnFilter`, `setPageIndex`, `toggleRowSelected`, `toggleColumnVisibility` and `resizeColumn`.
+
+## Column definition
+
+Everything from `@tablekit/core`'s `ColumnDef` (`id`, `header`, `accessor`, `sortable`, `sortFn`, `filter`, `filterFn`, `searchable`, `hideable`, `resizable`, `width`, `minWidth`, `maxWidth`, `pinned`, `priority`, `align`), plus these React additions:
+
+- `cell(ctx)` renders the cell. `ctx` has `value`, `row`, `column` and `table`.
+- `text(ctx)` gives a plain-text version, used for card titles and checkbox labels.
+- `optionLabel(value)` sets the label for select-filter options.
+- `rangeType: "date"` uses date inputs for range filters.
+- `isActions` marks a row-actions column. In the stacked layout it goes in the card header.
+
+## Without React
+
+`@tablekit/core` works in any framework:
+
+```ts
+import { createTable, toggleSort } from "@tablekit/core";
+
+const table = createTable({ data, columns });
+table.subscribe(render);
+table.setState((s) => ({ ...s, sorting: toggleSort(s.sorting, "name") }));
+table.getRowModel().rows; // → current page
+```
