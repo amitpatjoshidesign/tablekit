@@ -2,7 +2,7 @@
 
 You are using **tablekit**, an accessible, token-driven React table. Follow these rules.
 
-Full docs for agents: https://amitpatjoshidesign.github.io/tablekit/llms-full.txt
+Full docs for agents: https://tablekit.amitpatjoshi.com/llms-full.txt
 
 ## Default: schema mode
 

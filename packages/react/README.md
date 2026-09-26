@@ -15,4 +15,4 @@ import "@tablekit/react/styles.css";
 
 - `styles.css` includes the tokens and component styles. Use `tablekit.css` if you load the tokens yourself.
 - Design-system presets: `@tablekit/tokens/presets/{shadcn,material3,carbon,radix}.css`.
-- Rules for AI agents: [AGENTS.md](./AGENTS.md) · Docs: https://amitpatjoshidesign.github.io/tablekit/
+- Rules for AI agents: [AGENTS.md](./AGENTS.md) · Docs: https://tablekit.amitpatjoshi.com/

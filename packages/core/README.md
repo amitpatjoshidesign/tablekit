@@ -11,4 +11,4 @@ import { parseTableSchema } from "@tablekit/core/schema"; // zod-based; main ent
 - `createTable(options)` is a tiny subscribable store for non-React adapters.
 - The JSON Schema is at `@tablekit/core/tablekit.schema.json`.
 
-Docs: https://amitpatjoshidesign.github.io/tablekit/ · Rules for agents: [AGENTS.md](./AGENTS.md)
+Docs: https://tablekit.amitpatjoshi.com/ · Rules for agents: [AGENTS.md](./AGENTS.md)

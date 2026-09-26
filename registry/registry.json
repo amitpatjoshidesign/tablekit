@@ -1,12 +1,12 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "tablekit",
-  "homepage": "https://amitpatjoshidesign.github.io/tablekit",
+  "homepage": "https://tablekit.amitpatjoshi.com",
   "items": [
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "author": "tablekit contributors",
-      "docs": "Docs for agents: https://amitpatjoshidesign.github.io/tablekit/llms.txt — rules: components/tablekit/AGENTS.md",
+      "docs": "Docs for agents: https://tablekit.amitpatjoshi.com/llms.txt — rules: components/tablekit/AGENTS.md",
       "categories": [
         "table",
         "data-table",
@@ -156,7 +156,7 @@
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "author": "tablekit contributors",
-      "docs": "Docs for agents: https://amitpatjoshidesign.github.io/tablekit/llms.txt — rules: components/tablekit/AGENTS.md",
+      "docs": "Docs for agents: https://tablekit.amitpatjoshi.com/llms.txt — rules: components/tablekit/AGENTS.md",
       "categories": [
         "table",
         "data-table",

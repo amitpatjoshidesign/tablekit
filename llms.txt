@@ -2,28 +2,28 @@
 
 > Accessible, token-driven React data table for design systems and AI coding agents. Prefer schema mode: `<DataTable schema={…} data={…} />` from `@tablekit/react`, where the whole table is one strict JSON object (columns with types text/number/currency/date/badge/avatar/link/boolean/actions). Validate with `parseTableSchema` from `@tablekit/core/schema`. Colors come only from semantic badge tones and `--tk-*` CSS tokens; presets exist for shadcn/ui, Material 3, Carbon, Radix.
 
-Install: `npm i @tablekit/react` and `import "@tablekit/react/styles.css"`, or `npx shadcn@latest add https://amitpatjoshidesign.github.io/tablekit/r/tablekit.json`.
+Install: `npm i @tablekit/react` and `import "@tablekit/react/styles.css"`, or `npx shadcn@latest add https://tablekit.amitpatjoshi.com/r/tablekit.json`.
 
 ## Docs
 
-- [Introduction](https://amitpatjoshidesign.github.io/tablekit/getting-started/introduction/): What tablekit is, how it's organized, and which API to use.
-- [Install](https://amitpatjoshidesign.github.io/tablekit/getting-started/install/): Install tablekit with npm, the shadcn CLI, or an AI agent.
-- [Schema mode](https://amitpatjoshidesign.github.io/tablekit/guides/schema/): The TableSchema reference, the declarative config behind <DataTable>.
-- [Composable API](https://amitpatjoshidesign.github.io/tablekit/guides/composable/): Build custom tables from useTable and the Table.* parts.
-- [Theming & design systems](https://amitpatjoshidesign.github.io/tablekit/guides/theming/): Tokens, dark mode, presets for shadcn/ui, Material 3, Carbon and Radix, and Figma via DTCG.
-- [Responsive & mobile](https://amitpatjoshidesign.github.io/tablekit/guides/responsive/): How tablekit adapts to narrow containers with stacked cards, scrolling, or priority columns.
-- [Accessibility](https://amitpatjoshidesign.github.io/tablekit/guides/accessibility/): What tablekit does for keyboard, screen reader and low-vision users, and what you still need to do.
-- [Server-side data](https://amitpatjoshidesign.github.io/tablekit/guides/server-data/): Sort, filter and paginate on the server with controlled state.
-- [Agent guide](https://amitpatjoshidesign.github.io/tablekit/agents/overview/): How AI coding agents find, install and correctly use tablekit, and how to make your agent better at it.
+- [Introduction](https://tablekit.amitpatjoshi.com/getting-started/introduction/): What tablekit is, how it's organized, and which API to use.
+- [Install](https://tablekit.amitpatjoshi.com/getting-started/install/): Install tablekit with npm, the shadcn CLI, or an AI agent.
+- [Schema mode](https://tablekit.amitpatjoshi.com/guides/schema/): The TableSchema reference, the declarative config behind <DataTable>.
+- [Composable API](https://tablekit.amitpatjoshi.com/guides/composable/): Build custom tables from useTable and the Table.* parts.
+- [Theming & design systems](https://tablekit.amitpatjoshi.com/guides/theming/): Tokens, dark mode, presets for shadcn/ui, Material 3, Carbon and Radix, and Figma via DTCG.
+- [Responsive & mobile](https://tablekit.amitpatjoshi.com/guides/responsive/): How tablekit adapts to narrow containers with stacked cards, scrolling, or priority columns.
+- [Accessibility](https://tablekit.amitpatjoshi.com/guides/accessibility/): What tablekit does for keyboard, screen reader and low-vision users, and what you still need to do.
+- [Server-side data](https://tablekit.amitpatjoshi.com/guides/server-data/): Sort, filter and paginate on the server with controlled state.
+- [Agent guide](https://tablekit.amitpatjoshi.com/agents/overview/): How AI coding agents find, install and correctly use tablekit, and how to make your agent better at it.
 
 ## Machine-readable
 
-- [llms-full.txt](https://amitpatjoshidesign.github.io/tablekit/llms-full.txt): all docs, agent rules, recipes and the JSON Schema in one file
-- [TableSchema JSON Schema](https://amitpatjoshidesign.github.io/tablekit/schema/v1.json): validate or constrain generated configs
-- [shadcn registry item](https://amitpatjoshidesign.github.io/tablekit/r/tablekit.json): source install
-- [Registry index](https://amitpatjoshidesign.github.io/tablekit/r/registry.json)
+- [llms-full.txt](https://tablekit.amitpatjoshi.com/llms-full.txt): all docs, agent rules, recipes and the JSON Schema in one file
+- [TableSchema JSON Schema](https://tablekit.amitpatjoshi.com/schema/v1.json): validate or constrain generated configs
+- [shadcn registry item](https://tablekit.amitpatjoshi.com/r/tablekit.json): source install
+- [Registry index](https://tablekit.amitpatjoshi.com/r/registry.json)
 
 ## Optional
 
-- [Prompt recipes](https://amitpatjoshidesign.github.io/tablekit/agents/recipes/): 11 copy-paste prompts with expected schemas
-- [Playground](https://amitpatjoshidesign.github.io/tablekit/playground/): live schema editor
+- [Prompt recipes](https://tablekit.amitpatjoshi.com/agents/recipes/): 11 copy-paste prompts with expected schemas
+- [Playground](https://tablekit.amitpatjoshi.com/playground/): live schema editor

@@ -4,7 +4,7 @@
 
 AI agents describe the table in JSON, engineers compose it from parts, and designers theme it with tokens. It's built for the web and adapts to mobile.
 
-[Docs](https://amitpatjoshidesign.github.io/tablekit/) · [Playground](https://amitpatjoshidesign.github.io/tablekit/playground/) · [llms.txt](https://amitpatjoshidesign.github.io/tablekit/llms.txt) · [Prompt recipes](https://amitpatjoshidesign.github.io/tablekit/agents/recipes/)
+[Docs](https://tablekit.amitpatjoshi.com/) · [Playground](https://tablekit.amitpatjoshi.com/playground/) · [llms.txt](https://tablekit.amitpatjoshi.com/llms.txt) · [Prompt recipes](https://tablekit.amitpatjoshi.com/agents/recipes/)
 
 ```tsx
 import { DataTable } from "@tablekit/react";
@@ -47,7 +47,7 @@ Most table libraries are either headless, so you build all the UI yourself, or c
 ```sh
 npm install @tablekit/react @fontsource-variable/inter   # the table is set in Inter
 # or copy the source into your project with the shadcn CLI:
-npx shadcn@latest add https://amitpatjoshidesign.github.io/tablekit/r/tablekit.json
+npx shadcn@latest add https://tablekit.amitpatjoshi.com/r/tablekit.json
 ```
 
 ## Features (v1)
@@ -62,11 +62,11 @@ The docs site includes a chrome-free demo page:
 
 ```html
 <iframe
-  src="https://amitpatjoshidesign.github.io/tablekit/embed/?recipe=invoices&presets=1"
+  src="https://tablekit.amitpatjoshi.com/embed/?recipe=invoices&presets=1"
   title="tablekit demo" style="width:100%;height:720px;border:0" loading="lazy"></iframe>
 ```
 
-`recipe` accepts any recipe id from the [prompt recipes](https://amitpatjoshidesign.github.io/tablekit/agents/recipes/) (e.g. `invoices`, `settlements`, `members`). `theme` accepts `light` or `dark`, and `presets=1` shows the preset switcher.
+`recipe` accepts any recipe id from the [prompt recipes](https://tablekit.amitpatjoshi.com/agents/recipes/) (e.g. `invoices`, `settlements`, `members`). `theme` accepts `light` or `dark`, and `presets=1` shows the preset switcher.
 
 ## Develop
 
@@ -82,10 +82,10 @@ See [AGENTS.md](AGENTS.md) for the repo layout and conventions. Coding agents re
 
 ## Before publishing: rename checklist
 
-`tablekit`, the `@tablekit` npm scope and `amitpatjoshidesign.github.io/tablekit` are placeholders. If you change them:
+`tablekit`, the `@tablekit` npm scope and the `tablekit.amitpatjoshi.com` docs domain are placeholders. If you change them:
 
 1. Rename the npm scope in the `packages/*/package.json` files, the workspace dependencies and the imports (`grep -r "@tablekit/"`).
-2. Update the URLs. `grep -rl "amitpatjoshidesign.github.io/tablekit" . --exclude-dir=node_modules` finds all of them. CI derives the URLs from the repo name via `SITE_URL`/`BASE`.
+2. Update the URLs. `grep -rl "tablekit.amitpatjoshi.com" . --exclude-dir=node_modules` finds all of them, including `SITE`/`SITE_URL` in `.github/workflows/pages.yml` and the custom domain in the repo's Pages settings.
 3. Add an `NPM_TOKEN` secret, and turn on GitHub Pages with the source set to **GitHub Actions**.
 
 ## Credits

@@ -32,7 +32,7 @@
     "url": "git+https://github.com/amitpatjoshidesign/tablekit.git",
     "directory": "packages/tokens"
   },
-  "homepage": "https://amitpatjoshidesign.github.io/tablekit/",
+  "homepage": "https://tablekit.amitpatjoshi.com/",
   "publishConfig": {
     "access": "public",
     "provenance": true

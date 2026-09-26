@@ -7,7 +7,7 @@ import { toJSONSchema } from "../src/schema.ts";
 const here = dirname(fileURLToPath(import.meta.url));
 const out = resolve(here, "../dist/tablekit.schema.json");
 const json = {
-  $id: "https://amitpatjoshidesign.github.io/tablekit/schema/v1.json",
+  $id: "https://tablekit.amitpatjoshi.com/schema/v1.json",
   title: "tablekit TableSchema v1",
   description: "Declarative table config for <DataTable schema={...} />. See llms.txt for usage.",
   ...toJSONSchema(),
